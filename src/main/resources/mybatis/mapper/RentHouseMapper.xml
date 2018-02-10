@@ -21,6 +21,6 @@
     </select>
 
     <select id="selectCampusList" parameterType="page" resultType="pd">
-        select * from tbl_rent order by time desc
+        select * from tbl_rent where type=#{pd.type} order by time desc
     </select>
 </mapper>
