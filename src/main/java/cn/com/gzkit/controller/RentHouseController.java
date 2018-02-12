@@ -10,7 +10,9 @@ import cn.com.gzkit.utils.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,6 +89,25 @@ public class RentHouseController extends BaseController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    /**
+     * 发布出租
+     */
+    @ResponseBody
+    @RequestMapping("/publishRent")
+    public ResultData<ParamData> publishRent
+    (@RequestParam("files") CommonsMultipartFile files[], HttpServletRequest request) {
+        try {
+//            String name = request.getParameter("name");
+            //初始化分页参数
+            for(CommonsMultipartFile file:files){
+                System.out.println(file.getOriginalFilename());
+            }
+            return new ResultData<ParamData>(HandleEnum.SUCCESS, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<ParamData>(HandleEnum.FAIL, e.getMessage());
         }
     }
 }
