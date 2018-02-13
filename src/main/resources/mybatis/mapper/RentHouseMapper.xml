@@ -11,7 +11,7 @@
         select * from tbl_user where name=#{name}
     </select>
     <insert id="insertUser" parameterType="pd">
-        insert into tbl_user (name,password,time,school_id) values (#{name},#{password},now(),#{school_id})
+        insert into tbl_user (name,password,time,schoolId) values (#{name},#{password},now(),#{schoolId})
     </insert>
     <select id="selectSchoolName" parameterType="pd" resultType="String">
         select name from tbl_school
@@ -23,4 +23,8 @@
     <select id="selectCampusList" parameterType="page" resultType="pd">
         select * from tbl_rent where type=#{pd.type} order by time desc
     </select>
+    <insert id="insertRent" parameterType="pd">
+        insert into tbl_rent (title,content,title_img,other_img,type,longitude,latitude,location,amount,house_type,area,label,bbs_id,user_id,time)
+         VALUES (#{title},#{content},#{title_img},#{other_img},#{type},#{longitude},#{latitude},#{location},#{amount},#{house_type},#{area},#{label},#{bbs_id},#{user_id},now())
+    </insert>
 </mapper>

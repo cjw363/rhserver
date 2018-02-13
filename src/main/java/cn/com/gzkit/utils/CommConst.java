@@ -22,9 +22,9 @@ public class CommConst {
     public static final int RESULT_CODE_SUCCESS = 1;
     public static final int RESULT_CODE_FAIL = 0;
     //上传文件的地址
-    public static final String UPLOAD_IMAGE = "F:/upload/uploadImage/";
-    public static final String UPLOAD_VIDEO = "F:/upload/uploadVideo/";
-    public static final String UPLOAD_AUDIO = "F:/upload/uploadAudio/";
+    public static final String UPLOAD_IMAGE = "E:/Proj/graduation/upload/uploadImage/";
+    public static final String UPLOAD_VIDEO = "E:/Proj/graduation/upload/uploadVideo/";
+    public static final String UPLOAD_AUDIO = "E:/Proj/graduation/upload/uploadAudio/";
     //上传临时存放地址，文件过大时
     public static final String UPLOAD_TEMP = "F:/upload/Temp/";
     //状态评价短信接口

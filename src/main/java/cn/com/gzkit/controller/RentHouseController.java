@@ -16,7 +16,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.util.List;
 
 /**
@@ -50,47 +49,10 @@ public class RentHouseController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/loadFile")
-    public void loadFile(HttpServletRequest request,HttpServletResponse response){
-        BufferedInputStream bis = null;
-        BufferedOutputStream fos = null;
-        try {
-            String filePath = request.getParameter("filePath");
-            String uploadType = request.getParameter("uploadType");
-            File file = new File(filePath);
-
-            bis = new BufferedInputStream(new FileInputStream(file));
-            fos = new BufferedOutputStream(response.getOutputStream());
-
-            String[] split1 = filePath.split("/");
-            String fileName=split1[split1.length-1];
-
-            response.setContentType(uploadType);
-            response.setHeader("Cache-Control","no-cache,must-revalidate");//告诉浏览器当前页面不进行缓存，每次访问的时间必须从服务器上读取最新的数据
-            response.setContentLength(bis.available());
-            response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\"" );
-
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = bis.read(buffer)) > 0 ) {
-                fos.write(buffer, 0, length);
-            }
-            fos.flush();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally{
-            try {
-                if(bis!=null)
-                    bis.close();
-                if(fos!=null)
-                    fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public void loadFile(HttpServletRequest request, HttpServletResponse response) {
+        rentHouseService.loadFile(request, response);
     }
+
     /**
      * 发布出租
      */
@@ -99,12 +61,42 @@ public class RentHouseController extends BaseController {
     public ResultData<ParamData> publishRent
     (@RequestParam("files") CommonsMultipartFile files[], HttpServletRequest request) {
         try {
-//            String name = request.getParameter("name");
-            //初始化分页参数
-            for(CommonsMultipartFile file:files){
-                System.out.println(file.getOriginalFilename());
+            boolean isAllUploadSuccess = false;
+            ParamData pd = new ParamData();
+            pd.put("title", request.getParameter("title"));
+            pd.put("content", request.getParameter("content"));
+            pd.put("type", request.getParameter("type"));
+            pd.put("location", request.getParameter("location"));
+            pd.put("longitude", request.getParameter("longitude"));
+            pd.put("latitude", request.getParameter("latitude"));
+            pd.put("amount", request.getParameter("amount"));
+            pd.put("bed", request.getParameter("bed"));
+            pd.put("area", request.getParameter("area"));
+            pd.put("house_type", request.getParameter("house_type"));
+            pd.put("user_id", request.getParameter("user_id"));
+            pd.put("label", request.getParameter("label"));
+            pd.put("bbs_id", "0");
+
+            String otherImg = "";
+            for (int i = 0; i < files.length; i++) {
+                String filePath = rentHouseService.uploadFile(files[i]);
+                if (filePath != null) {
+                    isAllUploadSuccess = true;
+                    if (i == 0) {
+                        pd.put("title_img", filePath);
+                    } else {
+                        otherImg += filePath + ",";
+                    }
+                } else isAllUploadSuccess = false;
             }
-            return new ResultData<ParamData>(HandleEnum.SUCCESS, "");
+            if (otherImg.length() > 0) otherImg = otherImg.substring(0, otherImg.length() - 1);
+            pd.put("other_img", otherImg);
+            if (isAllUploadSuccess) {
+                if (rentHouseService.publishRent(pd) > 0)
+                    return new ResultData<ParamData>(HandleEnum.SUCCESS);
+            }
+            return new ResultData<ParamData>(HandleEnum.FAIL, "上传失败");
+
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultData<ParamData>(HandleEnum.FAIL, e.getMessage());

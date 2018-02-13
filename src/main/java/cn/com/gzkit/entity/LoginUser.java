@@ -6,11 +6,20 @@ import java.io.Serializable;
  * Created by Administrator on 2018/1/4.
  */
 public class LoginUser implements Serializable {
+    private int id;
     private String name;
     private String password;
     private String token;
     private String time;
     private int schoolId;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTime() {
         return time;

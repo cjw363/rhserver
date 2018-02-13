@@ -21,4 +21,6 @@ public interface RentHouseDao {
     ParamData selectSchoolByName(ParamData pd);
 
     List<ParamData> selectCampusList(Page page);
+
+    int insertRent(ParamData pd);
 }
