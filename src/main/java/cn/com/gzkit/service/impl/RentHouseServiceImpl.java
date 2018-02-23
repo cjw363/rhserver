@@ -50,6 +50,19 @@ public class RentHouseServiceImpl implements RentHouseService {
 
     @Override
     public List<ParamData> getCampusList(Page page) {
+        ParamData pd = page.getPd();
+        String sortType = pd.getString("sort_type");
+        if ("default".equals(sortType)) {
+            return rentHouseDao.selectCampusList(page);
+        } else if ("time".equals(sortType)) {
+            return rentHouseDao.selectCampusListByTime(page);
+        } else if ("distance".equals(sortType)) {
+            return rentHouseDao.selectCampusList(page);
+        } else if ("amount_up".equals(sortType)) {
+            return rentHouseDao.selectCampusListByAmountUp(page);
+        } else if ("amount_down".equals(sortType)) {
+            return rentHouseDao.selectCampusListByAmountDown(page);
+        }
         return rentHouseDao.selectCampusList(page);
     }
 
@@ -136,6 +149,16 @@ public class RentHouseServiceImpl implements RentHouseService {
     @Override
     public int publishRent(ParamData pd) {
         return rentHouseDao.insertRent(pd);
+    }
+
+    @Override
+    public List<ParamData> getBBsList(ParamData pd) {
+        return rentHouseDao.selectBBsList(pd);
+    }
+
+    @Override
+    public int bbs(ParamData pd) {
+        return rentHouseDao.insertBBs(pd);
     }
 
     /**

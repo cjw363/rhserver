@@ -75,7 +75,6 @@ public class RentHouseController extends BaseController {
             pd.put("house_type", request.getParameter("house_type"));
             pd.put("user_id", request.getParameter("user_id"));
             pd.put("label", request.getParameter("label"));
-            pd.put("bbs_id", "0");
 
             String otherImg = "";
             for (int i = 0; i < files.length; i++) {
@@ -100,6 +99,39 @@ public class RentHouseController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultData<ParamData>(HandleEnum.FAIL, e.getMessage());
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/bbs")
+    public ResultData<List<ParamData>> bbs(HttpServletRequest request) {
+        try {
+            //获取参数
+            ParamData pd = this.paramDataInit();
+            int result = rentHouseService.bbs(pd);
+            if (result > 0) {
+                return new ResultData<List<ParamData>>(HandleEnum.SUCCESS, rentHouseService.getBBsList(pd));
+            }
+
+            return new ResultData<List<ParamData>>(HandleEnum.FAIL);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<List<ParamData>>(HandleEnum.FAIL, e.getMessage());
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/bbsList")
+    public ResultData<List<ParamData>> bbsList(HttpServletRequest request) {
+        try {
+            //获取参数
+            ParamData pd = this.paramDataInit();
+            List<ParamData> result = rentHouseService.getBBsList(pd);
+
+            return new ResultData<List<ParamData>>(HandleEnum.SUCCESS, result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<List<ParamData>>(HandleEnum.FAIL, e.getMessage());
         }
     }
 }

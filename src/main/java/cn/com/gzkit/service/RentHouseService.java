@@ -28,4 +28,8 @@ public interface RentHouseService {
     String uploadFile(CommonsMultipartFile file);
 
     int publishRent(ParamData pd);
+
+    List<ParamData> getBBsList(ParamData pd);
+
+    int bbs(ParamData pd);
 }
