@@ -29,7 +29,7 @@ public class RhLoginInterceptor extends HandlerInterceptorAdapter {
         } else if (!memory.checkTokenOutTime(token)) {
             request.setAttribute("message", "Session已过期，请重新登录");
         } else {
-            ThreadTokenHolder.setToken(token); // 保存当前token，用于Controller层获取登录用户信息
+//            ThreadTokenHolder.setToken(token); // 保存当前token，用于Controller层获取登录用户信息
             return true;//放行
         }
         request.getRequestDispatcher("/rh/login/unLogin").forward(request, response);

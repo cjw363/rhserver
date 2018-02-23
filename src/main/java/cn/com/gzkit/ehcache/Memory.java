@@ -1,7 +1,6 @@
 package cn.com.gzkit.ehcache;
 
 import cn.com.gzkit.entity.LoginUser;
-import cn.com.gzkit.spring.ThreadTokenHolder;
 import cn.com.gzkit.spring.TokenProcessor;
 import cn.com.gzkit.utils.MD5Util;
 import net.sf.ehcache.Cache;
@@ -56,8 +55,8 @@ public class Memory {
      * 获取当前线程中的用户信息
      *
      */
-    private LoginUser currentLoginUser() {
-        Element element = ehcache.get(ThreadTokenHolder.getToken());
+    private LoginUser currentLoginUser(String token) {
+        Element element = ehcache.get(token);
         return element == null ? null : (LoginUser) element.getObjectValue();
     }
 
@@ -73,8 +72,8 @@ public class Memory {
     /**
      * 清空登录信息
      */
-    public void clearLoginInfo() {
-        LoginUser loginUser = currentLoginUser();
+    public void clearLoginInfoByToken(String token) {
+        LoginUser loginUser = currentLoginUser(token);
         if (loginUser != null) {
             // 根据登录的用户名生成seed，然后清除登录信息
             String seed = MD5Util.getMD5Code(loginUser.getName());
@@ -91,8 +90,7 @@ public class Memory {
         if (element != null) {
             // 根据token清空之前的登录信息
             ehcache.remove(seed);
-            ehcache.remove(element.getObjectKey());
+            ehcache.remove(element.getObjectValue());
         }
-        ThreadTokenHolder.clearToken();
     }
 }

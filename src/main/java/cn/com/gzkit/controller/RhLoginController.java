@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -70,8 +69,15 @@ public class RhLoginController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/login/out")
-    public void outLogin(HttpSession session) {
-        session.invalidate();
+    public ResultData<ParamData> outLogin(HttpServletRequest request) {
+        try {
+            ParamData pd = this.paramDataInit();
+            memory.clearLoginInfoByToken(pd.getString("token"));
+            return new ResultData<ParamData>(HandleEnum.SUCCESS, "注销成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<ParamData>(HandleEnum.FAIL, e.getMessage());
+        }
     }
 
     @ResponseBody
