@@ -14,10 +14,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/12/26.
@@ -56,6 +56,12 @@ public class RentHouseServiceImpl implements RentHouseService {
     public List<ParamData> getCampusList(Page page) {
         ParamData pd = page.getPd();
         String sortType = pd.getString("sort_type");
+        Map around = MapDistance.getAround(pd.getString("latitude"), pd.getString("longitude"), "30000");
+        pd.put("minLat", around.get("minLat"));
+        pd.put("maxLat", around.get("maxLat"));
+        pd.put("minLng", around.get("minLng"));
+        pd.put("maxLng", around.get("maxLng"));
+
         List<ParamData> campusList = null;
         if ("default".equals(sortType)) {
             campusList = rentHouseDao.selectCampusList(page);
@@ -71,7 +77,6 @@ public class RentHouseServiceImpl implements RentHouseService {
             campusList = rentHouseDao.selectCampusList(page);
         }
 
-        List<ParamData> campusSortList = new ArrayList<ParamData>();
         for (ParamData p : campusList) {
             String longitude1 = pd.getString("longitude");
             String latitude1 = pd.getString("latitude");
@@ -81,11 +86,10 @@ public class RentHouseServiceImpl implements RentHouseService {
             int distance = MapDistance.getDistance(latitude1, longitude1, latitude2, longitude2);
             if (distance <= 30000) {
                 p.put("distance", distance);
-                campusSortList.add(p);
             }
         }
         if ("distance".equals(sortType)) {
-            Collections.sort(campusSortList, new Comparator<ParamData>() {
+            Collections.sort(campusList, new Comparator<ParamData>() {
                 @Override
                 public int compare(ParamData p1, ParamData p2) {
                     //升序
@@ -97,7 +101,7 @@ public class RentHouseServiceImpl implements RentHouseService {
                 }
             });
         }
-        return campusSortList;
+        return campusList;
     }
 
     @Override

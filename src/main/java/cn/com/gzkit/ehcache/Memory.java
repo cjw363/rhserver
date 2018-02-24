@@ -53,7 +53,6 @@ public class Memory {
 
     /**
      * 获取当前线程中的用户信息
-     *
      */
     private LoginUser currentLoginUser(String token) {
         Element element = ehcache.get(token);
@@ -62,7 +61,6 @@ public class Memory {
 
     /**
      * 根据token检查用户是否登录
-     *
      */
     public boolean checkTokenOutTime(String token) {
         Element element = ehcache.get(token);

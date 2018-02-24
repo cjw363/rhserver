@@ -66,16 +66,16 @@ public class MapDistance {
         Double dpmLng = 1 / mpdLng;
         Double radiusLng = dpmLng * raidusMile;
         //获取最小经度
-        Double minLat = longitude - radiusLng;
+        Double minLng = longitude - radiusLng;
         // 获取最大经度
-        Double maxLat = longitude + radiusLng;
+        Double maxLng = longitude + radiusLng;
 
         Double dpmLat = 1 / degree;
         Double radiusLat = dpmLat * raidusMile;
         // 获取最小纬度
-        Double minLng = latitude - radiusLat;
+        Double minLat = latitude - radiusLat;
         // 获取最大纬度
-        Double maxLng = latitude + radiusLat;
+        Double maxLat = latitude + radiusLat;
 
         map.put("minLat", minLat + "");
         map.put("maxLat", maxLat + "");
