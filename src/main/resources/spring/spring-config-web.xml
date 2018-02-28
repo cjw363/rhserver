@@ -12,7 +12,7 @@
 	
 	<context:annotation-config />
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-	<context:component-scan base-package="cn.com.gzkit.controller" />
+	<context:component-scan base-package="com.cjw.rhserver.controller" />
 	
 	<!-- 开启多种视图支持-->
 	<mvc:annotation-driven />
@@ -26,7 +26,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/resource/**"/>
-			<bean class="cn.com.gzkit.spring.RhLoginInterceptor"/>
+			<bean class="com.cjw.rhserver.spring.RhLoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 	

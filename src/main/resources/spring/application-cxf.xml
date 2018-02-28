@@ -9,32 +9,32 @@
     	http://www.springframework.org/schema/context/spring-context-3.0.xsd
     	http://cxf.apache.org/jaxws
     	http://cxf.apache.org/schemas/jaxws.xsd" default-autowire="byName">
-    <jaxws:server id="naviWebService" serviceClass="cn.com.gzkit.webservice.NaviWebService" address="/navi">
+    <jaxws:server id="naviWebService" serviceClass="com.cjw.rhserver.webservice.NaviWebService" address="/navi">
  		<jaxws:serviceBean>
- 			<bean name="naviWebserviceImple" class="cn.com.gzkit.webservice.impl.NaviWebServiceImpl"/>
+ 			<bean name="naviWebserviceImple" class="com.cjw.rhserver.webservice.impl.NaviWebServiceImpl"/>
  		</jaxws:serviceBean>
  	</jaxws:server>
  	
-    <jaxws:server id="reportWebservice" serviceClass="cn.com.gzkit.webservice.ReportWebService" address="/report">
+    <jaxws:server id="reportWebservice" serviceClass="com.cjw.rhserver.webservice.ReportWebService" address="/report">
         <jaxws:serviceBean>
-            <bean name="reportWebserviceImpl" class="cn.com.gzkit.webservice.impl.ReportWebServiceImpl"/>
+            <bean name="reportWebserviceImpl" class="com.cjw.rhserver.webservice.impl.ReportWebServiceImpl"/>
         </jaxws:serviceBean>
     </jaxws:server>
     
-    <jaxws:server id="monitorWebservice" serviceClass="cn.com.gzkit.webservice.MonitorWebService" address="/monitor">
+    <jaxws:server id="monitorWebservice" serviceClass="com.cjw.rhserver.webservice.MonitorWebService" address="/monitor">
         <jaxws:serviceBean>
-            <bean name="monitorWebserviceImpl" class="cn.com.gzkit.webservice.impl.MonitorWebServiceImpl"/>
+            <bean name="monitorWebserviceImpl" class="com.cjw.rhserver.webservice.impl.MonitorWebServiceImpl"/>
         </jaxws:serviceBean>
     </jaxws:server>
     
-    <jaxws:server id="feedbackWebservice" serviceClass="cn.com.gzkit.webservice.FeedbackWebService" address="/feedback">
+    <jaxws:server id="feedbackWebservice" serviceClass="com.cjw.rhserver.webservice.FeedbackWebService" address="/feedback">
         <jaxws:serviceBean>
-            <bean name="feedbackWebserviceImpl" class="cn.com.gzkit.webservice.impl.FeedbackWebServiceImpl"/>
+            <bean name="feedbackWebserviceImpl" class="com.cjw.rhserver.webservice.impl.FeedbackWebServiceImpl"/>
         </jaxws:serviceBean>
     </jaxws:server>
     <!-- 下面这种配置适合接口和实现类合并在一起的写法 -->
     <!--
-    <jaxws:endpoint implementor="cn.com.gzkit.olm.webservice.impl.OlmWebServiceImpl" address="/olm"></jaxws:endpoint>
-	<jaxws:endpoint implementor="cn.com.gzkit.mip.webservice.impl.MipWebServiceImpl" address="/mip"></jaxws:endpoint>
+    <jaxws:endpoint implementor="com.cjw.rhserverver.olm.webservice.impl.OlmWebServiceImpl" address="/olm"></jaxws:endpoint>
+	<jaxws:endpoint implementor="com.cjw.rhserverver.mip.webservice.impl.MipWebServiceImpl" address="/mip"></jaxws:endpoint>
 	-->
 </beans>

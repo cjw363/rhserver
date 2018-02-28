@@ -17,13 +17,13 @@
     </settings>
 
 	<typeAliases>
-		<typeAlias type="cn.com.gzkit.utils.ParamData" alias="pd"/>
-		<typeAlias type="cn.com.gzkit.entity.system.Page" alias="page"/>
+		<typeAlias type="com.cjw.rhserver.utils.ParamData" alias="pd"/>
+		<typeAlias type="com.cjw.rhserver.entity.system.Page" alias="page"/>
 	</typeAliases>
 	
 	<!-- 用来过滤是否分页查询 -->
     <plugins>
-		<plugin interceptor="cn.com.gzkit.utils.PagePlugin">
+		<plugin interceptor="com.cjw.rhserver.utils.PagePlugin">
 			<property name="dialect" value="oracle"/>
 			<property name="method" value=".*ByPage.*"/>
 		</plugin>

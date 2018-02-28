@@ -52,7 +52,7 @@
 	</bean>
 	
 	<!-- 自定义登录验证 及权限-->
-	<bean id="userDetailsService" class="cn.com.gzkit.security.UserDetailsServiceImpl"/>
+	<bean id="userDetailsService" class="com.cjw.rhserver.security.UserDetailsServiceImpl"/>
 	
 	<!-- 配置密码加密类 -->  
 	<bean id="passwordEncode" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>  
@@ -61,26 +61,26 @@
 	</bean>
 	
     <!-- 登录成功后的业务处理 -->
-	<bean id="successHandler" class="cn.com.gzkit.security.LoginSuccessHandler">
+	<bean id="successHandler" class="com.cjw.rhserver.security.LoginSuccessHandler">
         <property name="defaultTargetUrl" value="/index.jsp"/>
     </bean>
     
     <!-- 登录失败业务处理 -->
-	<bean id="failureHandler" class="cn.com.gzkit.security.LoginFailureHandler">
+	<bean id="failureHandler" class="com.cjw.rhserver.security.LoginFailureHandler">
 		<property name="defaultFailureUrl" value="/user/login?error=true"/>
 	</bean>
 	
 	<!-- 自定义权限不足处理程序 -->
-	<bean id="accessDeniedHandler" class="cn.com.gzkit.security.DefaultDeniedHandler">
+	<bean id="accessDeniedHandler" class="com.cjw.rhserver.security.DefaultDeniedHandler">
 	    <property name="accessDeniedUrl" value="/sys/denied"/>
 	</bean>
 	
-	<bean id="webSecurityFilter" class="cn.com.gzkit.security.WebSecurityFilter">
+	<bean id="webSecurityFilter" class="com.cjw.rhserver.security.WebSecurityFilter">
         <property name="accessDecisionManager" ref="webAccessDecisionManager"/>
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="securityMetadataSource" ref="webSecurityMetadataSource"/>
     </bean>
 
-    <bean id="webAccessDecisionManager" class="cn.com.gzkit.security.WebAccessDecisionManager"/>
-    <bean id="webSecurityMetadataSource" class="cn.com.gzkit.security.WebSecurityMetadataSource"/>
+    <bean id="webAccessDecisionManager" class="com.cjw.rhserver.security.WebAccessDecisionManager"/>
+    <bean id="webSecurityMetadataSource" class="com.cjw.rhserver.security.WebSecurityMetadataSource"/>
 </beans>
