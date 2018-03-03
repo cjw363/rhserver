@@ -199,6 +199,21 @@ public class RentHouseServiceImpl implements RentHouseService {
         return rentHouseDao.insertBBs(pd);
     }
 
+    @Override
+    public List<ParamData> getMyPublishList(Page page) {
+        return rentHouseDao.selectMyPublishList(page);
+    }
+
+    @Override
+    public int deleteRent(ParamData pd) {
+        return rentHouseDao.deleteRent(pd);
+    }
+
+    @Override
+    public int updateStatusRent(ParamData pd) {
+        return rentHouseDao.updateStatusRent(pd);
+    }
+
     /**
      * @return 根据上传的文件类型选择存放的路径
      */

@@ -30,6 +30,7 @@
         and latitude >= #{pd.minLat}
         and longitude &lt;= #{pd.maxLng}
         and longitude >= #{pd.minLng}
+        and status = 1
     </select>
     <select id="selectCampusListByTime" parameterType="page" resultType="pd">
         select * from tbl_rent where type=#{pd.type}
@@ -37,6 +38,7 @@
         and latitude >= #{pd.minLat}
         and longitude &lt;= #{pd.maxLng}
         and longitude >= #{pd.minLng}
+        and status = 1
         order by time desc
     </select>
     <select id="selectCampusListByAmountUp" parameterType="page" resultType="pd">
@@ -45,6 +47,7 @@
         and latitude >= #{pd.minLat}
         and longitude &lt;= #{pd.maxLng}
         and longitude >= #{pd.minLng}
+        and status = 1
         order by amount asc
     </select>
     <select id="selectCampusListByAmountDown" parameterType="page" resultType="pd">
@@ -53,6 +56,7 @@
         and latitude >= #{pd.minLat}
         and longitude &lt;= #{pd.maxLng}
         and longitude >= #{pd.minLng}
+        and status = 1
         order by amount desc
     </select>
 
@@ -62,4 +66,16 @@
     <insert id="insertBBs" parameterType="pd">
         insert into tbl_bbs (rent_id,user_id,content,time) values (#{rent_id},#{user_id},#{content},now())
     </insert>
+
+    <select id="selectMyPublishList" parameterType="page" resultType="pd">
+        select * from tbl_rent where user_id=#{pd.user_id} order by amount desc
+    </select>
+
+    <delete id="deleteRent" parameterType="pd">
+        delete from tbl_rent where id=#{rent_id}
+    </delete>
+
+    <update id="updateStatusRent" parameterType="pd">
+        update tbl_rent set status=#{status} where id=#{rent_id}
+    </update>
 </mapper>

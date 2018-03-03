@@ -33,4 +33,10 @@ public interface RentHouseDao {
     List<ParamData> selectBBsList(ParamData pd);
 
     int insertBBs(ParamData pd);
+
+    List<ParamData> selectMyPublishList(Page page);
+
+    int deleteRent(ParamData pd);
+
+    int updateStatusRent(ParamData pd);
 }

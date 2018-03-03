@@ -7,7 +7,6 @@ import com.cjw.rhserver.utils.CommUtil;
 import com.cjw.rhserver.utils.HandleEnum;
 import com.cjw.rhserver.utils.ParamData;
 import com.cjw.rhserver.utils.ResultData;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/12/26.
@@ -31,8 +29,8 @@ public class RentHouseController extends BaseController {
     private RentHouseService rentHouseService;
 
     @ResponseBody
-    @RequestMapping("/campusList")
-    public ResultData<List<ParamData>> campusList(HttpServletRequest request) {
+    @RequestMapping("/myPublishList")
+    public ResultData<List<ParamData>> myPublishList(HttpServletRequest request) {
         try {
             //获取参数
             ParamData pd = this.paramDataInit();
@@ -40,7 +38,7 @@ public class RentHouseController extends BaseController {
             int pageCur = CommUtil.paramConvert(pd.getString("pageCur"), 1);//当前页
             int pageSize = CommUtil.paramConvert(pd.getString("pageSize"), 10);//每一页10条数据
             Page page = new Page(pageCur, pageSize, pd);
-            List<ParamData> result = rentHouseService.getCampusList(page);
+            List<ParamData> result = rentHouseService.getMyPublishList(page);
 
             return new ResultData<List<ParamData>>(HandleEnum.SUCCESS, result);
         } catch (Exception e) {
@@ -134,6 +132,57 @@ public class RentHouseController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultData<List<ParamData>>(HandleEnum.FAIL, e.getMessage());
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/campusList")
+    public ResultData<List<ParamData>> campusList(HttpServletRequest request) {
+        try {
+            //获取参数
+            ParamData pd = this.paramDataInit();
+            //初始化分页参数
+            int pageCur = CommUtil.paramConvert(pd.getString("pageCur"), 1);//当前页
+            int pageSize = CommUtil.paramConvert(pd.getString("pageSize"), 10);//每一页10条数据
+            Page page = new Page(pageCur, pageSize, pd);
+            List<ParamData> result = rentHouseService.getCampusList(page);
+
+            return new ResultData<List<ParamData>>(HandleEnum.SUCCESS, result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<List<ParamData>>(HandleEnum.FAIL, e.getMessage());
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/deleteRent")
+    public ResultData<ParamData> deleteRent(HttpServletRequest request) {
+        try {
+            //获取参数
+            ParamData pd = this.paramDataInit();
+            if (rentHouseService.deleteRent(pd) > 0)
+                return new ResultData<ParamData>(HandleEnum.SUCCESS);
+            else
+                return new ResultData<ParamData>(HandleEnum.FAIL);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<ParamData>(HandleEnum.FAIL, e.getMessage());
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping("/updateStatusRent")
+    public ResultData<ParamData> offShelfRent(HttpServletRequest request) {
+        try {
+            //获取参数
+            ParamData pd = this.paramDataInit();
+            if (rentHouseService.updateStatusRent(pd) > 0)
+                return new ResultData<ParamData>(HandleEnum.SUCCESS);
+            else
+                return new ResultData<ParamData>(HandleEnum.FAIL);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultData<ParamData>(HandleEnum.FAIL, e.getMessage());
         }
     }
 }

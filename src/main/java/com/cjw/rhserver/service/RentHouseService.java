@@ -32,4 +32,10 @@ public interface RentHouseService {
     List<ParamData> getBBsList(ParamData pd);
 
     int bbs(ParamData pd);
+
+    List<ParamData> getMyPublishList(Page page);
+
+    int deleteRent(ParamData pd);
+
+    int updateStatusRent(ParamData pd);
 }
