@@ -172,7 +172,7 @@ public class RentHouseController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/updateStatusRent")
-    public ResultData<ParamData> offShelfRent(HttpServletRequest request) {
+    public ResultData<ParamData> updateStatusRent(HttpServletRequest request) {
         try {
             //获取参数
             ParamData pd = this.paramDataInit();

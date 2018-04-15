@@ -120,7 +120,7 @@ public class RentHouseServiceImpl implements RentHouseService {
             String fileName = split1[split1.length - 1];
 
             response.setContentType(uploadType);
-            response.setHeader("Cache-Control", "no-cache,must-revalidate");//告诉浏览器当前页面不进行缓存，每次访问的时间必须从服务器上读取最新的数据
+//            response.setHeader("Cache-Control", "no-cache,must-revalidate");//告诉浏览器当前页面不进行缓存，每次访问的时间必须从服务器上读取最新的数据
             response.setContentLength(bis.available());
             response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\"");
 
@@ -128,8 +128,8 @@ public class RentHouseServiceImpl implements RentHouseService {
             int length;
             while ((length = bis.read(buffer)) > 0) {
                 fos.write(buffer, 0, length);
+                fos.flush();
             }
-            fos.flush();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
