@@ -10,7 +10,7 @@
         select * from tbl_user where name=#{name}
     </select>
     <insert id="insertUser" parameterType="pd">
-        insert into tbl_user (name,password,time,schoolId) values (#{name},#{password},now(),#{schoolId})
+        insert into tbl_user (name,password,time,school_id) values (#{name},#{password},now(),#{school_id})
     </insert>
     <select id="selectSchoolName" parameterType="pd" resultType="String">
         select name from tbl_school
