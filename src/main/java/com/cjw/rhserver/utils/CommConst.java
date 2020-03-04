@@ -22,11 +22,11 @@ public class CommConst {
     public static final int RESULT_CODE_SUCCESS = 1;
     public static final int RESULT_CODE_FAIL = 0;
     //上传文件的地址
-    public static final String UPLOAD_IMAGE = "E:/Proj/graduation/upload/uploadImage/";
-    public static final String UPLOAD_VIDEO = "E:/Proj/graduation/upload/uploadVideo/";
-    public static final String UPLOAD_AUDIO = "E:/Proj/graduation/upload/uploadAudio/";
+    public static final String UPLOAD_IMAGE = "/home/cjw/download/upload/uploadImage/";
+    public static final String UPLOAD_VIDEO = "/home/cjw/download/upload/uploadVideo/";
+    public static final String UPLOAD_AUDIO = "/home/cjw/download/upload/uploadAudio/";
     //上传临时存放地址，文件过大时
-    public static final String UPLOAD_TEMP = "F:/upload/Temp/";
+    public static final String UPLOAD_TEMP = UPLOAD_IMAGE;
     //状态评价短信接口
     public static final String URL_SMS = "http://10.124.140.244/biz/kit/public_.do?action=sendSMS";
 
